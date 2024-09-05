@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from pymysql import MySQLError
 
-from mysql import connection, create_tables
+from mysql import connection
 
 app = Flask(__name__)
 
@@ -57,6 +57,5 @@ if __name__ == "__main__":
     finally:
         cursor.close()
         conn.close()
-
 
     app.run()

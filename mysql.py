@@ -1,5 +1,3 @@
-from linecache import cache
-
 import pymysql
 
 def connection():
