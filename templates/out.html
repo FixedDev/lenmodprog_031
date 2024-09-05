@@ -1,0 +1,30 @@
+<!doctype HTML>
+<html lang="es">
+<head>
+    <title>Agenda</title>
+</head>
+
+<body>
+<h1>Contactos</h1>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <td>{{contact[0]}}</td>
+                    <td>{{contact[1]}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+
