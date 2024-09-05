@@ -9,6 +9,14 @@ app = Flask(__name__)
 def root():
     return render_template("index.html")
 
+@app.route("/update")
+def update():
+    return render_template("update.html")
+
+@app.route("/remove")
+def remove():
+    return render_template("remove.html")
+
 @app.route("/out")
 def show():
     conn = connection()
@@ -45,12 +53,52 @@ def form():
         conn.close()
 
     return redirect("out")
+
+@app.route("/removepost", methods=["POST"])
+def removepost():
+    id = request.form["id"]
+
+    conn = connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("DELETE FROM agenda where id = %s;", id)
+        conn.commit()
+    except MySQLError as e:
+        print(e)
+        return "Error", 400
+    finally:
+        cursor.close()
+        conn.close()
+
+    return redirect("out")
+@app.route("/updatepost", methods=["POST"])
+def updatepost():
+    id = request.form["id"]
+    name = request.form["firstname"]
+    lastName = request.form["lastname"]
+
+    conn = connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("UPDATE agenda SET firstname = %s, lastname = %s where id = %s;", (name, lastName, id))
+        conn.commit()
+    except MySQLError as e:
+        print(e)
+        return "Error", 400
+    finally:
+        cursor.close()
+        conn.close()
+
+    return redirect("out")
+
 if __name__ == "__main__":
     conn = connection()
     cursor = conn.cursor()
 
     try:
-        cursor.execute("CREATE TABLE IF NOT EXISTS agenda(firstname TEXT, lastname TEXT);")
+        cursor.execute("CREATE TABLE IF NOT EXISTS agenda(id INT AUTO_INCREMENT, firstname TEXT, lastname TEXT);")
         conn.commit()
     except Exception as e:
         print(e)
