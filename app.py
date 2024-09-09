@@ -98,7 +98,7 @@ if __name__ == "__main__":
     cursor = conn.cursor()
 
     try:
-        cursor.execute("CREATE TABLE IF NOT EXISTS agenda(id INT AUTO_INCREMENT, firstname TEXT, lastname TEXT);")
+        cursor.execute("CREATE TABLE IF NOT EXISTS agenda(id INT AUTO_INCREMENT PRIMARY KEY, firstname TEXT, lastname TEXT);")
         conn.commit()
     except Exception as e:
         print(e)
